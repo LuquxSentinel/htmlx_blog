@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>All articles</title>
+</head>
+
+<body>
+	{{if eq (len .) 0}}
+	Nothing to see here
+	{{end}}
+	{{range .}}
+	<div>
+		<a href="/articles/{{.ID}}">{{.Title}}</a>
+	</div>
+	{{end}}
+	<p>
+		<a href="/articles">Create new article</a>
+	</p>
+</body>
+
+</html>

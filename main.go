@@ -1,24 +1,21 @@
 package main
 
 import (
-	"os"
-	"text/template"
+	"log"
 
-	"github.com/luqus/templater/types"
+	"github.com/luqus/templater/storage"
 )
 
 func main() {
 
-	tmpl := "Hello {{.Name}}"
-
-	user := types.User{"Luqus"}
-	t, err := template.New("test").Parse(tmpl)
+	sqliteStorage, err := storage.NewSqliteStorage()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
-	err = t.Execute(os.Stdout, user)
-	if err != nil {
-		panic(err)
+	server := NewAPIServer(":3000", sqliteStorage)
+
+	if err := server.Run(); err != nil {
+		log.Fatal(err)
 	}
 }

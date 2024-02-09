@@ -6,7 +6,13 @@ import (
 	"github.com/luqus/templater/types"
 )
 
-type Storage interface{}
+type Storage interface {
+	CreateArticle(article *types.Article) error
+	GetAllArticles() ([]*types.Article, error)
+	GetArticle(articleID string) (*types.Article, error)
+	UpdateArticle(id string, article *types.Article) error
+	DeleteArticle(articleID string) error
+}
 
 type SqliteStorage struct {
 	db *sql.DB
